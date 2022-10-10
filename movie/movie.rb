@@ -4,7 +4,7 @@ require_relative '../ruby/item'
 class Movie < Item
   attr_accessor :silent, :publish_date
 
-  def initialize(silent, publish_date)
+  def initialize(silent, publish_date, archived)
     super(publish_date, archived)
     @silent = silent
     @publish_date = publish_date
@@ -15,5 +15,5 @@ class Movie < Item
     return true if @silent && super
   end
 
-  can_be_archived?
+  private :can_be_archived?
 end
