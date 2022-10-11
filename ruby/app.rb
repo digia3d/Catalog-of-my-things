@@ -22,4 +22,14 @@ class App
     @books << book
     print "\n Book Created Successfully 🎉 \n"
   end
+
+  def list_books
+    print "Books (#{@books.length}) ⬎ "
+    print "\n currently no books here" if @books.empty?
+    @books.each do |book|
+      print "\n • #{book.publish_date.strftime('%a %d %b %Y')}, published by #{book.publisher}"
+    end
+
+    print "\n"
+  end
 end
