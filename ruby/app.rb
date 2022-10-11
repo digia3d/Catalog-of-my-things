@@ -112,12 +112,12 @@ class App
   end
 
   def add_movie
-    print 'Is the movie silent? true or false: '
-    silent = gets.chomp
+    print 'Is the movie silent? Y or N: '
+    silent = gets.chomp.upcase
     case silent
-    when 'true'
+    when 'Y'
       silent = true
-    when 'false'
+    when 'N'
       silent = false
     else
       puts 'Oooops!!! Invalid response. Please try again...'
@@ -127,6 +127,15 @@ class App
     date_response = gets.chomp
     print 'Is the book archived? (Y/N): '
     archived_response = gets.chomp.upcase
+    case archived_response
+    when 'Y'
+      archived_response = true
+    when 'N'
+      archived_response = false
+    else
+      puts 'Oooops!!! Invalid response. Please try again...'
+      return
+    end
 
     movie = Movie.new(silent, date_response, archived_response)
     @movies << movie
@@ -137,7 +146,7 @@ class App
     print "Movies (#{@movies.length}) ⬎ "
     print "\n currently no Movies here" if @movies.empty?
     @movies.each do |movie|
-      print "\n • Silent: #{movie.silent} published Date : #{movie.publish_date}"
+      print "\n Silent: #{movie.silent} || Published date: #{movie.publish_date}"
     end
 
     print "\n"
