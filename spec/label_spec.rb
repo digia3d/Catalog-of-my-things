@@ -14,7 +14,7 @@ describe Label do
     it 'should assign right properties' do
       expect(@label).to have_attributes(
         title: 'dangerous',
-        color: 'red',
+        color: 'red'
       )
     end
   end
