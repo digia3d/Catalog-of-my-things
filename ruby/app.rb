@@ -32,4 +32,14 @@ class App
 
     print "\n"
   end
+
+  def list_labels
+    print "Labels (#{@labels.length}) ⬎ "
+    print "\n currently no labels here" if @books.empty?
+    @labels.each do |label|
+      print "\n • #{label.title} - #{label.color}"
+    end
+
+    print "\n"
+  end
 end
