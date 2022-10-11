@@ -1,10 +1,16 @@
+require 'date'
 require_relative 'book'
+require_relative 'music_album'
+require_relative 'genre'
 
 class App
+  attr_reader :music_albums, :genres
+
   def initialize
-    @name = 'John Doe'
     @books = []
     @labels = []
+    @music_albums = []
+    @genres = []
   end
 
   def add_book
@@ -41,5 +47,64 @@ class App
     end
 
     print "\n"
+  end
+
+  # add music album to the list
+  def add_music_album
+    puts 'Is the music album on spotify? [Y/N]: '
+    spotify = gets.chomp.capitalize
+
+    case spotify
+    when 'Y'
+      spotify = true
+    when 'N'
+      spotify = false
+    else
+      puts 'Invalid response. Please try again...'
+      return
+    end
+
+    puts 'Enter publication date (yyyy-mm-dd):'
+    date = gets.chomp
+
+    puts 'Is it archived? [Y/N]:'
+    archived_str = gets.chomp
+    archived = %w[Y YES].include?(archived_str.upcase)
+
+    music_album = MusicAlbum.new(spotify, date, archived)
+    @music_albums << music_album
+    puts 'Music album created successfully!'
+    sleep(1)
+    puts
+  end
+
+  # list all music albums
+  def list_music_albums
+    if @music_albums.length.positive?
+      @music_albums.each_with_index do |album, index|
+        puts "#{index}). On-spotify: #{album.on_spotify}, Publication Date: #{album.publish_date}"
+      end
+    else
+      # if music album is empty
+      puts
+      puts 'There are currently no music albums'
+    end
+    sleep(1)
+    puts
+  end
+
+  # list all genres
+  def list_genres
+    if @genres.length.positive?
+      @genres.each_with_index do |genre, index|
+        puts "#{index}). Genre: #{genre.name}"
+      end
+    else
+      # if genre is empty
+      puts
+      puts 'There are currently no genres'
+    end
+    sleep(1)
+    puts
   end
 end

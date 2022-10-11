@@ -17,10 +17,16 @@ def handle_case(option, app)
   case option
   when 1
     app.list_books
+  when 2
+    print app.list_music_albums
+  when 5
+    print app.list_genres
   when 6
     app.list_labels
   when 9
     app.add_book
+  when 10
+    print app.add_music_album
   when 13
     print 'Thanks for using the app!'
   else
