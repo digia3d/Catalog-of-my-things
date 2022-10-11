@@ -13,12 +13,18 @@ def main
   end
 end
 
-def handle_case(option, _app)
+def handle_case(option, app)
   case option
   when 1
     print 'Coming Soon...'
+  when 2
+    print app.list_music_albums
+  when 5
+    print app.list_genres
   when 13
     print 'Thanks for using the app!'
+  when 10
+    print app.add_music_album
   else
     print "Invalid option... Choose one of the options above\n"
   end
