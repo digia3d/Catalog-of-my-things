@@ -19,14 +19,20 @@ def handle_case(option, app)
     app.list_books
   when 2
     print app.list_music_albums
+  when 3
+    print app.list_movies
   when 5
     print app.list_genres
   when 6
     app.list_labels
+  when 8
+    app.list_sources
   when 9
     app.add_book
   when 10
     print app.add_music_album
+  when 11
+    print app.add_movie
   when 13
     print 'Thanks for using the app!'
   else
