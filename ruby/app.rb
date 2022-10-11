@@ -26,12 +26,15 @@ class App
       return
     end
 
-    puts 'Enter publication date: '
+    puts 'Enter publication date (yyyy-mm-dd):'
     date = gets.chomp
 
-    music_album = MusicAlbum.new(spotify, date, false)
-    music_albums << music_album
-    puts
+    puts 'Is it archived? [Y/N]:'
+    archived_str = gets.chomp
+    archived = %w[Y YES].include?(archived_str.upcase)
+
+    music_album = MusicAlbum.new(spotify, date, archived)
+    @music_albums << music_album
     puts 'Music album created successfully!'
     sleep(1)
     puts
@@ -48,7 +51,6 @@ class App
       puts
       puts 'There are currently no music albums'
     end
-    puts
     sleep(1)
     puts
   end
@@ -64,7 +66,6 @@ class App
       puts
       puts 'There are currently no genres'
     end
-    puts
     sleep(1)
     puts
   end
