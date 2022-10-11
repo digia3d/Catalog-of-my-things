@@ -26,8 +26,8 @@ class App
   def list_books
     print "Books (#{@books.length}) ⬎ "
     print "\n currently no books here" if @books.empty?
-    @books.each do |book|
-      print "\n • #{book.publish_date.strftime('%a %d %b %Y')}, published by #{book.publisher}"
+    @books.each_with_index do |book, index|
+      print "\n • [#{index}] #{book.publish_date.strftime('%a %d %b %Y')}, published by #{book.publisher}"
     end
 
     print "\n"
