@@ -13,10 +13,14 @@ def main
   end
 end
 
-def handle_case(option, _app)
+def handle_case(option, app)
   case option
   when 1
-    print 'Coming Soon...'
+    app.list_books
+  when 6
+    app.list_labels
+  when 9
+    app.add_book
   when 13
     print 'Thanks for using the app!'
   else
