@@ -46,3 +46,7 @@ CREATE TABLE music_album (
   archived BOOLEAN,
 )
 
+CREATE TABLE genre (
+  id INT GENERATED ALWAYS AS DEFAULT PRIMARY KEY,
+  name VARCHAR(200),
+)
