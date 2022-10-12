@@ -152,11 +152,11 @@ class App
   end
 
   def list_authors
-    if @author.empty?
+    if @authors.empty?
       puts 'No author available'
     else
-      @authors.each_with_index do |first_name, last_name|
-        puts "#{index} Author Name: #{first_name} Last Name: #{last_name}"
+      @authors.each_with_index do |author, index|
+        puts "#{index} Author Name: #{author.first_name} Last Name: #{author.last_name}"
       end
     end
   end
