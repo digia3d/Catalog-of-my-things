@@ -5,7 +5,7 @@ require_relative '../genre'
 def write_genres(genres)
   genres = genres.map do |genre|
     {
-      name: genre.name
+      'name' => genre.name
     }
   end
 
