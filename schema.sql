@@ -30,3 +30,11 @@ CREATE TABLE source (
   name VARCHAR(200),
   PRIMARY KEY id,
 )
+
+CREATE TABLE movie (
+  id INT GENERATED ALWAYS AS DEFAULT,
+  silent BOOLEAN,
+  publish_date DATE,
+  archived BOOLEAN,
+  PRIMARY KEY id,
+)
