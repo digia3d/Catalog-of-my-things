@@ -20,6 +20,8 @@ class App
     @sources = []
   end
 
+  def start; end
+
   def add_book
     print 'Publisher: '
     publisher = gets.chomp
@@ -215,4 +217,6 @@ class App
 
     print "\n"
   end
+
+  def leave; end
 end
