@@ -3,6 +3,7 @@ require_relative 'app'
 def main
   print "\nWelcome to catalog of my things\n"
   app = App.new
+  app.start
   loop do
     print_options
     option = gets.chomp.to_i
@@ -40,6 +41,7 @@ def handle_case(option, app)
   when 12
     app.add_game
   when 13
+    app.leave
     print 'Thanks for using the app!'
   else
     print "Invalid option... Choose one of the options above\n"
