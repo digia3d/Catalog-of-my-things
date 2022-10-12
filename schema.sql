@@ -17,3 +17,10 @@ CREATE TABlE book (
   archived BOOLEAN,
   PRIMARY KEY id,
 )
+
+CREATE TABLE label (
+  id INT GENERATED ALWAYS AS DEFAULT,
+  title VARCHAR(200),
+  color VARCHAR(200),
+  PRIMARY KEY id,
+)
