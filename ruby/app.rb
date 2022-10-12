@@ -114,7 +114,8 @@ class App
 
   def add_game
     puts 'Is it a multiplayer game? [Y/N]: '
-    multiplayer = gets.chomp.downcase
+    multiplayer_str = gets.chomp.upcase
+    multiplayer = %w[Y YES].include?(multiplayer_str)
     puts 'Last played at (yyyy-mm-dd): '
     last_played_at = gets.chomp
     puts 'Publish date (yyyy-mm-dd): '
@@ -143,7 +144,7 @@ class App
     else
       @games.each do |game|
         puts "
-        Multiplayer: #{game.multiplayer == 'y' ? 'Yes' : 'No'},
+        Multiplayer: #{game.multiplayer ? 'Yes' : 'No'},
         Game last played at: #{game.last_played_at},
         Published on: #{game.publish_date}
         "
@@ -156,7 +157,7 @@ class App
       puts 'No author available'
     else
       @authors.each_with_index do |author, index|
-        puts "#{index} Author Name: #{author.first_name} Last Name: #{author.last_name}"
+        puts "#{index}) First Name: #{author.first_name} Last Name: #{author.last_name}"
       end
     end
   end
