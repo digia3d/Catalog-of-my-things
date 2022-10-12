@@ -38,3 +38,11 @@ CREATE TABLE movie (
   archived BOOLEAN,
   PRIMARY KEY id,
 )
+
+CREATE TABLE music_album (
+  id INT GENERATED ALWAYS AS DEFAULT PRIMARY KEY,
+  on_spotify BOOLEAN,
+  publish_date DATE,
+  archived BOOLEAN,
+)
+
