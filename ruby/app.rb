@@ -2,6 +2,8 @@ require 'date'
 require_relative 'book'
 require_relative 'music_album'
 require_relative 'genre'
+require_relative 'game'
+require_relative 'author'
 
 class App
   attr_reader :music_albums, :genres
@@ -11,6 +13,8 @@ class App
     @labels = []
     @music_albums = []
     @genres = []
+    @games = []
+    @authors = []
   end
 
   def add_book
@@ -106,5 +110,54 @@ class App
     end
     sleep(1)
     puts
+  end
+
+  def add_game
+    puts 'Is it a multiplayer game? [Y/N]: '
+    multiplayer = gets.chomp.downcase
+    puts 'Last played at (yyyy-mm-dd): '
+    last_played_at = gets.chomp
+    puts 'Publish date (yyyy-mm-dd): '
+    publish_date = gets.chomp
+    puts 'Is the game archived? (Y/N): '
+    archived_str = gets.chomp
+    archived = %w[Y YES].include?(archived_str.upcase)
+
+    game = Game.new(multiplayer, last_played_at, publish_date, archived)
+    @games.push(game)
+
+    puts 'Author first name: '
+    first_name = gets.chomp
+    puts 'Author last name: '
+    last_name = gets.chomp
+    author = Author.new(first_name, last_name)
+
+    author.add_item(game)
+    @authors << author
+    puts 'Game added successfully'
+  end
+
+  def list_games
+    if @games.empty?
+      puts 'Game not found'
+    else
+      @games.each do |game|
+        puts "
+        Multiplayer: #{game.multiplayer == 'y' ? 'Yes' : 'No'},
+        Game last played at: #{game.last_played_at},
+        Published on: #{game.publish_date}
+        "
+      end
+    end
+  end
+
+  def list_authors
+    if @author.empty?
+      puts 'No author available'
+    else
+      @authors.each_with_index do |first_name, last_name|
+        puts "#{index} Author Name: #{first_name} Last Name: #{last_name}"
+      end
+    end
   end
 end
