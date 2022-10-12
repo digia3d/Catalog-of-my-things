@@ -5,6 +5,9 @@ require_relative 'genre'
 require_relative 'game'
 require_relative 'author'
 require_relative 'movie'
+require_relative 'source'
+require_relative 'actions/movie'
+require_relative 'actions/sources'
 
 class App
   attr_reader :music_albums, :genres
@@ -20,7 +23,10 @@ class App
     @sources = []
   end
 
-  def start; end
+  def start
+    @movies = read_movies
+    @sources = read_sources
+  end
 
   def add_book
     print 'Publisher: '
@@ -181,20 +187,15 @@ class App
     end
     print 'Which day was it published? (yyyy-mm-dd): '
     date_response = gets.chomp
-    print 'Is the book archived? (Y/N): '
-    archived_response = gets.chomp.upcase
-    case archived_response
-    when 'Y'
-      archived_response = true
-    when 'N'
-      archived_response = false
-    else
-      puts 'Oooops!!! Invalid response. Please try again...'
-      return
-    end
-
-    movie = Movie.new(silent, date_response, archived_response)
+    movie = Movie.new(silent, date_response)
     @movies << movie
+
+    print 'Give the source of the movie: '
+    source_response = gets.chomp
+    source = Source.new(source_response)
+    source.add_item(movie)
+    @sources << source
+
     puts 'Movie created successfully'
   end
 
@@ -212,11 +213,14 @@ class App
     print "Sources (#{@sources.length}) ⬎ "
     print "\n Currently, the source is empty" if @sources.empty?
     @sources.each_with_index do |source, ind|
-      p "#{ind + 1} Id: #{source.id} name: #{source.name}"
+      print "\n #{ind + 1} name: #{source.name}"
     end
 
     print "\n"
   end
 
-  def leave; end
+  def leave
+    write_movies(@movies)
+    write_sources(@sources)
+  end
 end
