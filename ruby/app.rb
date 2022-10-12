@@ -224,7 +224,7 @@ class App
   end
 
   def leave
-    load_games(@games)
-    load_authors(@authors)
+    write_games(@games)
+    write_authors(@authors)
   end
 end
