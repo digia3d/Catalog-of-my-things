@@ -13,8 +13,8 @@ require_relative 'actions/music_album_actions'
 require_relative 'actions/genre_actions'
 require_relative 'actions/book_actions'
 require_relative 'actions/label_actions'
-require_relative 'action/game_action'
-require_relative 'action/author_action'
+require_relative 'actions/game_action'
+require_relative 'actions/author_action'
 
 class App
   attr_reader :music_albums, :genres
