@@ -5,6 +5,8 @@ require_relative 'genre'
 require_relative 'game'
 require_relative 'author'
 require_relative 'movie'
+require_relative 'actions/book_actions'
+require_relative 'actions/label_actions'
 
 class App
   attr_reader :music_albums, :genres
@@ -20,7 +22,10 @@ class App
     @sources = []
   end
 
-  def start; end
+  def start
+    @books = load_books
+    @labels = load_labels
+  end
 
   def add_book
     print 'Publisher: '
@@ -218,5 +223,8 @@ class App
     print "\n"
   end
 
-  def leave; end
+  def leave
+    write_books(@books)
+    write_labels(@labels)
+  end
 end
