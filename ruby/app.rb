@@ -33,7 +33,7 @@ class App
   def start
     FileUtils.mkdir_p('./data')
     @movies = read_movies
-    @sources = read_sources  
+    @sources = read_sources
     @books = load_books
     @labels = load_labels
     @music_albums = read_music_albums
