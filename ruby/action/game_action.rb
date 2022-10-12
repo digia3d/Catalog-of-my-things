@@ -15,7 +15,7 @@ def write_games(games)
 end
 
 def load_games
-  file_reader = FileReader.new('games.json')
+  file_reader = FileReader.new(games, 'games.json')
   games = file_reader.read
   games.map do |game|
     Game.new(game['multiplayer'], game['last_played_at'], game['publish_date'])
