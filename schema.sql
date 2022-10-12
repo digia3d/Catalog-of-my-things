@@ -50,3 +50,11 @@ CREATE TABLE genre (
   id INT GENERATED ALWAYS AS DEFAULT PRIMARY KEY,
   name VARCHAR(200),
 )
+
+CREATE TABLE game (
+  id INT GENERATED ALWAYS AS DEFAULT PRIMARY KEY,
+  multiplayer BOOLEAN,
+  last_played_at DATE,
+  publish_date DATE,
+  archived BOOLEAN,
+)
