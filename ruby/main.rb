@@ -19,6 +19,8 @@ def handle_case(option, app)
     app.list_books
   when 2
     print app.list_music_albums
+  when 3
+    print app.list_movies
   when 4
     app.list_games
   when 5
@@ -27,10 +29,14 @@ def handle_case(option, app)
     app.list_labels
   when 7
     app.list_authors
+  when 8
+    app.list_sources
   when 9
     app.add_book
   when 10
     print app.add_music_album
+  when 11
+    print app.add_movie
   when 12
     app.add_game
   when 13
