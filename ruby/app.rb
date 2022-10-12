@@ -6,6 +6,8 @@ require_relative 'genre'
 require_relative 'game'
 require_relative 'author'
 require_relative 'movie'
+require_relative 'actions/music_album_actions'
+require_relative 'actions/genre_actions'
 require_relative 'actions/book_actions'
 require_relative 'actions/label_actions'
 require_relative 'action/game_action'
@@ -29,6 +31,8 @@ class App
     FileUtils.mkdir_p('./data')
     @books = load_books
     @labels = load_labels
+    @music_albums = read_music_albums
+    @genres = read_genres
     @games = load_games
     @authors = load_authors
   end
@@ -86,6 +90,7 @@ class App
 
   # add music album to the list
   def add_music_album
+    # add on-spotify status
     puts 'Is the music album on spotify? [Y/N]: '
     spotify = gets.chomp.capitalize
 
@@ -99,13 +104,22 @@ class App
       return
     end
 
+    # add genre
+    puts 'Enter genre name: '
+    genre_name = gets.chomp
+    genre = Genre.new(genre_name)
+    @genres << genre unless @genres.include?(genre)
+
+    # add year of publication
     puts 'Enter publication date (yyyy-mm-dd):'
     date = gets.chomp
 
+    # add archived status
     puts 'Is it archived? [Y/N]:'
     archived_str = gets.chomp
     archived = %w[Y YES].include?(archived_str.upcase)
 
+    # create new music album
     music_album = MusicAlbum.new(spotify, date, archived)
     @music_albums << music_album
     puts 'Music album created successfully!'
@@ -131,8 +145,9 @@ class App
   # list all genres
   def list_genres
     if @genres.length.positive?
+      puts "Genres (#{@genres.length}) ⬎ "
       @genres.each_with_index do |genre, index|
-        puts "#{index}). Genre: #{genre.name}"
+        puts "#{index + 1}). #{genre.name}"
       end
     else
       # if genre is empty
@@ -245,6 +260,8 @@ class App
   end
 
   def leave
+    write_music_albums(@music_albums)
+    write_genres(@genres)
     write_books(@books)
     write_labels(@labels)
     write_games(@games)
