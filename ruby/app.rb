@@ -6,6 +6,9 @@ require_relative 'genre'
 require_relative 'game'
 require_relative 'author'
 require_relative 'movie'
+require_relative 'source'
+require_relative 'actions/movie'
+require_relative 'actions/sources'
 require_relative 'actions/music_album_actions'
 require_relative 'actions/genre_actions'
 require_relative 'actions/book_actions'
@@ -29,6 +32,8 @@ class App
 
   def start
     FileUtils.mkdir_p('./data')
+    @movies = read_movies
+    @sources = read_sources
     @books = load_books
     @labels = load_labels
     @music_albums = read_music_albums
@@ -222,20 +227,15 @@ class App
     end
     print 'Which day was it published? (yyyy-mm-dd): '
     date_response = gets.chomp
-    print 'Is the book archived? (Y/N): '
-    archived_response = gets.chomp.upcase
-    case archived_response
-    when 'Y'
-      archived_response = true
-    when 'N'
-      archived_response = false
-    else
-      puts 'Oooops!!! Invalid response. Please try again...'
-      return
-    end
-
-    movie = Movie.new(silent, date_response, archived_response)
+    movie = Movie.new(silent, date_response)
     @movies << movie
+
+    print 'Give the source of the movie: '
+    source_response = gets.chomp
+    source = Source.new(source_response)
+    source.add_item(movie)
+    @sources << source
+
     puts 'Movie created successfully'
   end
 
@@ -253,13 +253,15 @@ class App
     print "Sources (#{@sources.length}) ⬎ "
     print "\n Currently, the source is empty" if @sources.empty?
     @sources.each_with_index do |source, ind|
-      p "#{ind + 1} Id: #{source.id} name: #{source.name}"
+      print "\n #{ind + 1} name: #{source.name}"
     end
 
     print "\n"
   end
 
   def leave
+    write_movies(@movies)
+    write_sources(@sources)
     write_music_albums(@music_albums)
     write_genres(@genres)
     write_books(@books)

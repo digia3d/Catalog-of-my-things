@@ -4,7 +4,7 @@ require 'date'
 
 describe Movie do
   before(:each) do
-    @movie = Movie.new(true, '2020-01-10', false)
+    @movie = Movie.new(true, '2020-01-10')
   end
 
   context '#new' do
@@ -15,8 +15,7 @@ describe Movie do
     it 'should assign right properties' do
       expect(@movie).to have_attributes(
         silent: true,
-        publish_date: Date.iso8601('2020-01-10'),
-        archived: false
+        publish_date: Date.iso8601('2020-01-10')
       )
     end
 
