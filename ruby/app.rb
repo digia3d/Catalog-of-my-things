@@ -1,4 +1,5 @@
 require 'date'
+require 'fileutils'
 require_relative 'book'
 require_relative 'music_album'
 require_relative 'genre'
@@ -23,6 +24,7 @@ class App
   end
 
   def start
+    FileUtils.mkdir_p('./data')
     @books = load_books
     @labels = load_labels
   end
@@ -38,9 +40,24 @@ class App
     archived_str = gets.chomp
     archived = %w[Y YES].include?(archived_str.upcase)
 
+    print "\n Book Created Successfully 🎉 \n"
     book = Book.new(publisher, cover_state, publish_date, archived)
     @books << book
-    print "\n Book Created Successfully 🎉 \n"
+
+    print "\nWould you like to add a label? (Y/N): "
+    answer_label = gets.chomp
+    if %w[Y YES].include?(answer_label.upcase)
+      print 'Title: '
+      title = gets.chomp
+      print 'Color: '
+      color = gets.chomp
+
+      print "\n Label Created Successfully 🎉 \n"
+      label = Label.new(title, color)
+      @labels << label
+    else
+      print "\n"
+    end
   end
 
   def list_books
