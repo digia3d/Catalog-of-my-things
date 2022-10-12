@@ -1,4 +1,5 @@
 require 'date'
+require 'fileutils'
 require_relative 'book'
 require_relative 'music_album'
 require_relative 'genre'
@@ -8,6 +9,12 @@ require_relative 'movie'
 require_relative 'source'
 require_relative 'actions/movie'
 require_relative 'actions/sources'
+require_relative 'actions/music_album_actions'
+require_relative 'actions/genre_actions'
+require_relative 'actions/book_actions'
+require_relative 'actions/label_actions'
+require_relative 'action/game_action'
+require_relative 'action/author_action'
 
 class App
   attr_reader :music_albums, :genres
@@ -24,8 +31,15 @@ class App
   end
 
   def start
+    FileUtils.mkdir_p('./data')
     @movies = read_movies
-    @sources = read_sources
+    @sources = read_sources  
+    @books = load_books
+    @labels = load_labels
+    @music_albums = read_music_albums
+    @genres = read_genres
+    @games = load_games
+    @authors = load_authors
   end
 
   def add_book
@@ -39,9 +53,24 @@ class App
     archived_str = gets.chomp
     archived = %w[Y YES].include?(archived_str.upcase)
 
+    print "\n Book Created Successfully 🎉 \n"
     book = Book.new(publisher, cover_state, publish_date, archived)
     @books << book
-    print "\n Book Created Successfully 🎉 \n"
+
+    print "\nWould you like to add a label? (Y/N): "
+    answer_label = gets.chomp
+    if %w[Y YES].include?(answer_label.upcase)
+      print 'Title: '
+      title = gets.chomp
+      print 'Color: '
+      color = gets.chomp
+
+      print "\n Label Created Successfully 🎉 \n"
+      label = Label.new(title, color)
+      @labels << label
+    else
+      print "\n"
+    end
   end
 
   def list_books
@@ -66,6 +95,7 @@ class App
 
   # add music album to the list
   def add_music_album
+    # add on-spotify status
     puts 'Is the music album on spotify? [Y/N]: '
     spotify = gets.chomp.capitalize
 
@@ -79,13 +109,22 @@ class App
       return
     end
 
+    # add genre
+    puts 'Enter genre name: '
+    genre_name = gets.chomp
+    genre = Genre.new(genre_name)
+    @genres << genre unless @genres.include?(genre)
+
+    # add year of publication
     puts 'Enter publication date (yyyy-mm-dd):'
     date = gets.chomp
 
+    # add archived status
     puts 'Is it archived? [Y/N]:'
     archived_str = gets.chomp
     archived = %w[Y YES].include?(archived_str.upcase)
 
+    # create new music album
     music_album = MusicAlbum.new(spotify, date, archived)
     @music_albums << music_album
     puts 'Music album created successfully!'
@@ -111,8 +150,9 @@ class App
   # list all genres
   def list_genres
     if @genres.length.positive?
+      puts "Genres (#{@genres.length}) ⬎ "
       @genres.each_with_index do |genre, index|
-        puts "#{index}). Genre: #{genre.name}"
+        puts "#{index + 1}). #{genre.name}"
       end
     else
       # if genre is empty
@@ -222,5 +262,11 @@ class App
   def leave
     write_movies(@movies)
     write_sources(@sources)
+    write_music_albums(@music_albums)
+    write_genres(@genres)
+    write_books(@books)
+    write_labels(@labels)
+    write_games(@games)
+    write_authors(@authors)
   end
 end
