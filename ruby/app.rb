@@ -8,6 +8,8 @@ require_relative 'author'
 require_relative 'movie'
 require_relative 'actions/book_actions'
 require_relative 'actions/label_actions'
+require_relative 'action/game_action'
+require_relative 'action/author_action'
 
 class App
   attr_reader :music_albums, :genres
@@ -27,6 +29,8 @@ class App
     FileUtils.mkdir_p('./data')
     @books = load_books
     @labels = load_labels
+    @games = load_games
+    @authors = load_authors
   end
 
   def add_book
@@ -243,5 +247,7 @@ class App
   def leave
     write_books(@books)
     write_labels(@labels)
+    write_games(@games)
+    write_authors(@authors)
   end
 end
