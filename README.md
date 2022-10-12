@@ -4,7 +4,7 @@
 
 > Description of the project: A console app that helps the user to keep a record of different types of things they own: books, music albums, movies, and games. Everything is based on the UML class diagram presented below. The data is stored in JSON files. Additionally, the project contains a database with tables structure analogical to the program's class structure.
 
-uml.png
+![uml diagram](images/uml.png)
 
 ## Built With
 - Languages: Ruby
@@ -35,33 +35,12 @@ ruby ruby/main.rb
 #### 6. Run Tests
 - This app uses Rspec, a unit testing framework for RUby. To run various tests, please enter the following commands on the terminal:
 
-```bash command
+```sh
 gem install rspec
 ```
 
-```bash command
-rspec spec/book_spec.rb
-```
-```bash command
-rspec spec/label_spec.rb
-```
-```bash command
-rspec spec/music_album_spec.rb
-```
-```bash command
-rspec spec/genre_spec.rb
-```
-```bash command
-rspec spec/game_spec.rb
-```
-```bash command
-rspec spec/author_spec.rb
-```
-```bash command
-rspec spec/movie_spec.rb
-```
-```bash command
-rspec spec/source_spec.rb
+```sh
+rspec .
 ```
 
 ## Authors
