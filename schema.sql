@@ -24,3 +24,9 @@ CREATE TABLE label (
   color VARCHAR(200),
   PRIMARY KEY id,
 )
+
+CREATE TABLE source (
+  id INT GENERATED ALWAYS AS DEFAULT,
+  name VARCHAR(200),
+  PRIMARY KEY id,
+)
