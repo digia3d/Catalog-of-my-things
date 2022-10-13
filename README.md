@@ -4,6 +4,11 @@
 
 > Description of the project: A console app that helps the user to keep a record of different types of things they own: books, music albums, movies, and games. Everything is based on the UML class diagram presented below. The data is stored in JSON files. Additionally, the project contains a database with tables structure analogical to the program's class structure.
 
+### Group Video (Google Drive)
+Here we recorded a video of the project features and implementations
+
+[Group Video Link](https://drive.google.com/file/d/10icVvqZlz8YHUUS2oKgdy-WKl8hzM90T/view?usp=sharing)
+
 ![uml diagram](images/uml.png)
 
 ## Built With
